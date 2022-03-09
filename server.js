@@ -21,6 +21,15 @@ const requestListener = (req, res) => {
       })
     );
     res.end();
+  } else if (req.url == "/todos" && req.method == "POST") {
+    res.writeHead(200, headers);
+    res.write(
+      JSON.stringify({
+        status: "success",
+        data: "post success",
+      })
+    );
+    res.end();
   } else if (req.method == "OPTIONS") {
     res.writeHead(200, headers);
     res.end();
