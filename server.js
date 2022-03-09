@@ -19,6 +19,9 @@ const requestListener = (req, res) => {
       })
     );
     res.end();
+  } else if (req.method == 'OPTIONS') {
+    res.writeHead(200, headers);
+    res.end();
   } else {
     res.writeHead(404, headers);
     res.write(
