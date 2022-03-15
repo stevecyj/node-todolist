@@ -12,6 +12,16 @@ const requestListener = (req, res) => {
     "Content-Type": "application/json",
   };
 
+  // body parser
+  let body = "";
+  req.on("data", (chunk) => {
+    console.log(chunk);
+    body += chunk.toString();
+  });
+  req.on("end", () => {
+    console.log(JSON.parse(body).title);
+  });
+
   if (req.url == "/todos" && req.method == "GET") {
     res.writeHead(200, headers);
     res.write(
@@ -38,7 +48,7 @@ const requestListener = (req, res) => {
     res.write(
       JSON.stringify({
         status: "false",
-        messate: "no route for this site",
+        message: "no route for this site",
       })
     );
     res.end();
