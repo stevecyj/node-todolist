@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const todos = [];
 
 const requestListener = (req, res) => {
+  // log method
   console.log(req.url + "\n", req.method);
   const headers = {
     "Access-Control-Allow-Headers":
@@ -15,11 +16,8 @@ const requestListener = (req, res) => {
   // body parser
   let body = "";
   req.on("data", (chunk) => {
-    console.log(chunk);
+    // console.log(chunk);
     body += chunk.toString();
-  });
-  req.on("end", () => {
-    console.log(JSON.parse(body).title);
   });
 
   if (req.url == "/todos" && req.method == "GET") {
@@ -32,14 +30,24 @@ const requestListener = (req, res) => {
     );
     res.end();
   } else if (req.url == "/todos" && req.method == "POST") {
-    res.writeHead(200, headers);
-    res.write(
-      JSON.stringify({
-        status: "success",
-        data: "post success",
-      })
-    );
-    res.end();
+    req.on("end", () => {
+      const title = JSON.parse(body).title;
+      console.log(title);
+      const todo = {
+        id: uuidv4(),
+        title,
+      };
+      todos.push(todo);
+
+      res.writeHead(200, headers);
+      res.write(
+        JSON.stringify({
+          status: "success",
+          data: todos,
+        })
+      );
+      res.end();
+    });
   } else if (req.method == "OPTIONS") {
     res.writeHead(200, headers);
     res.end();
