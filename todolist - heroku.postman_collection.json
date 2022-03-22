@@ -1,0 +1,135 @@
+{
+  "info": {
+    "_postman_id": "23873b04-32c3-4df4-b9dc-3ced2c046bc5",
+    "name": "todolist - heroku",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "取得所有待辦",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{URL}}/todos",
+          "host": ["{{URL}}"],
+          "path": ["todos"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "新增單筆待辦",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"今天不要刷牙7\"\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}/todos",
+          "host": ["{{URL}}"],
+          "path": ["todos"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "刪除所有待辦",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}/todos",
+          "host": ["{{URL}}"],
+          "path": ["todos"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "刪除單筆待辦",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}/todos/bb436ece-3a8d-46a6-abcb-9bcf0b73a34c",
+          "host": ["{{URL}}"],
+          "path": ["todos", "bb436ece-3a8d-46a6-abcb-9bcf0b73a34c"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "編輯單筆待辦",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"修改內容1\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}/todos/8df67e7d-a775-4c8f-841a-d0a810a131d3",
+          "host": ["{{URL}}"],
+          "path": ["todos", "8df67e7d-a775-4c8f-841a-d0a810a131d3"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "fcaf1541-caeb-42dc-a283-a2f9b4f7a450",
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "da5c2092-b970-4d6f-ac94-fc4bfd890973",
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "78d9ac78-38db-4e37-b47f-104df76260c6",
+      "key": "URL-esxi",
+      "value": "http://10.168.112.17:8080"
+    },
+    {
+      "id": "b8348fab-9c4a-49a5-b562-7b082ddf0aa5",
+      "key": "URL",
+      "value": "https://safe-meadow-83047.herokuapp.com"
+    },
+    {
+      "id": "69afb74f-ea19-4ba5-8680-a8a5de085d0f",
+      "key": "URL-virtualbox",
+      "value": "http://192.168.0.100:8080"
+    }
+  ],
+  "protocolProfileBehavior": {}
+}
