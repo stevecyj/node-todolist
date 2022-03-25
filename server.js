@@ -38,10 +38,10 @@ const requestListener = (req, res) => {
 
           successHandle(res, todos);
         } else {
-          errorHandle(res);
+          errorHandle(res, 400, 40002);
         }
       } catch (error) {
-        errorHandle(res);
+        errorHandle(res, 400, 40001);
       }
     });
   } else if (req.url == '/todos' && req.method == 'DELETE') {
@@ -55,7 +55,7 @@ const requestListener = (req, res) => {
       todos.splice(index, 1);
       successHandle(res, todos);
     } else {
-      errorHandle(res);
+      errorHandle(res, 400, 40003);
     }
   } else if (req.url.startsWith('/todos/') && req.method == 'PATCH') {
     req.on('end', () => {
@@ -68,17 +68,17 @@ const requestListener = (req, res) => {
           todos[index].title = todo;
           successHandle(res, todos);
         } else {
-          errorHandle(res);
+          errorHandle(res, 400, 40003);
         }
       } catch (error) {
-        errorHandle(res);
+        errorHandle(res, 400, 40001);
       }
     });
   } else if (req.method == 'OPTIONS') {
     res.writeHead(200, headers);
     res.end();
   } else {
-    errorHandle(res);
+    errorHandle(res, 401);
   }
 };
 
