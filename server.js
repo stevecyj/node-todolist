@@ -6,7 +6,7 @@ const todos = [];
 
 const requestListener = (req, res) => {
   // log method
-  console.log(req.url + '\n', req.method);
+  console.log(`url:${req.url}, method:${req.method}`);
 
   // body parser
   let body = '';
@@ -14,6 +14,11 @@ const requestListener = (req, res) => {
     // console.log(chunk);
     body += chunk.toString();
   });
+
+  // body
+  // req.on('end', () => {
+  //   console.log(body);
+  // });
 
   if (req.url == '/todos' && req.method == 'GET') {
     res.writeHead(200, headers);
