@@ -1,6 +1,7 @@
 const http = require('http');
 const { v4: uuidv4 } = require('uuid');
 const headers = require('./headers');
+const successHandle = require('./successHandle');
 const errorHandle = require('./errorHandle');
 const todos = [];
 const PORT = process.env.PORT || 8080;
@@ -22,14 +23,7 @@ const requestListener = (req, res) => {
   // });
 
   if (req.url == '/todos' && req.method == 'GET') {
-    res.writeHead(200, headers);
-    res.write(
-      JSON.stringify({
-        status: 'success',
-        data: todos,
-      })
-    );
-    res.end();
+    successHandle(res, todos);
   } else if (req.url == '/todos' && req.method == 'POST') {
     req.on('end', () => {
       // 異常行為
@@ -42,14 +36,7 @@ const requestListener = (req, res) => {
           };
           todos.push(todo);
 
-          res.writeHead(200, headers);
-          res.write(
-            JSON.stringify({
-              status: 'success',
-              data: todos,
-            })
-          );
-          res.end();
+          successHandle(res, todos);
         } else {
           errorHandle(res);
         }
@@ -59,30 +46,14 @@ const requestListener = (req, res) => {
     });
   } else if (req.url == '/todos' && req.method == 'DELETE') {
     todos.length = 0;
-    res.writeHead(200, headers);
-    res.write(
-      JSON.stringify({
-        status: 'success',
-        data: todos,
-        delete: 'yes',
-      })
-    );
-    res.end();
+    successHandle(res, todos);
   } else if (req.url.startsWith('/todos/') && req.method == 'DELETE') {
     const id = req.url.split('/').pop();
     const index = todos.findIndex((todo) => todo.id == id);
     // console.log(id, index);
     if (index !== -1) {
       todos.splice(index, 1);
-      res.writeHead(200, headers);
-      res.write(
-        JSON.stringify({
-          status: 'success',
-          data: todos,
-          delete: 'yes',
-        })
-      );
-      res.end();
+      successHandle(res, todos);
     } else {
       errorHandle(res);
     }
@@ -95,14 +66,7 @@ const requestListener = (req, res) => {
         const index = todos.findIndex((todo) => todo.id == id);
         if (todo !== undefined && index !== -1) {
           todos[index].title = todo;
-          res.writeHead(200, headers);
-          res.write(
-            JSON.stringify({
-              status: 'success',
-              data: todos,
-            })
-          );
-          res.end();
+          successHandle(res, todos);
         } else {
           errorHandle(res);
         }
@@ -114,14 +78,7 @@ const requestListener = (req, res) => {
     res.writeHead(200, headers);
     res.end();
   } else {
-    res.writeHead(404, headers);
-    res.write(
-      JSON.stringify({
-        status: 'false',
-        message: 'no route for this site',
-      })
-    );
-    res.end();
+    errorHandle(res);
   }
 };
 
