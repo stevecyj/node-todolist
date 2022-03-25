@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 const headers = require('./headers');
 const errorHandle = require('./errorHandle');
 const todos = [];
+const PORT = process.env.PORT || 8080;
 
 const requestListener = (req, res) => {
   // log method
@@ -125,4 +126,4 @@ const requestListener = (req, res) => {
 };
 
 const server = http.createServer(requestListener);
-server.listen(process.env.PORT || 8080);
+server.listen(PORT);
